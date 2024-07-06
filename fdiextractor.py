@@ -24,8 +24,30 @@ class FDI_EXTRACTOR():
        
         # RENAME COLUNMS
         specific_data.columns = ['Country', 'FDI (in million dollars)']
-        print(specific_data)
+      
+        return specific_data
+
+       # modify data
+    def modify_data(self,table):
+        '''
+        perform some operations to make data clearer
+        '''
+        
+        table['FDI (in million dollars)'] = table['FDI (in million dollars)'].astype(int) # convert to integer
+        table['FDI (in million dollars)'] = table['FDI (in million dollars)']/1000 #convert millions to billions
+        table['FDI (in million dollars)'] = np. round(table['FDI (in million dollars)'], 2)  #convert to 2 dp
+        table.rename(columns = {'FDI (in million dollars)':' FDI (in billion dollars)'}) # chage second column header
+        return table
+    
+    def convert_file(self, file):
+        ''' this function converts to csv'''
+        file.to_csv('fdi.csv')   
+        print('successfull') 
+        
+
 
 
 extract =FDI_EXTRACTOR()
-extract.fetch_table()      
+fetched =extract.fetch_table()
+mod_table =extract.modify_data(fetched)
+extract.convert_file(mod_table)
