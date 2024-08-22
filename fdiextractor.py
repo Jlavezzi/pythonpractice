@@ -16,7 +16,7 @@ class FDI_EXTRACTOR():
         
         # Replace the column headers with column numbers
         fdi_df.columns = range(fdi_df.shape[1])
-
+        # pick the specific columns 
         specific_data = fdi_df[[0, 4]]
         
         # pickthe top 20
@@ -51,3 +51,30 @@ extract =FDI_EXTRACTOR()
 fetched =extract.fetch_table()
 mod_table =extract.modify_data(fetched)
 extract.convert_file(mod_table)
+
+
+
+
+
+
+
+
+
+
+
+# use the yf.ticker to access te apple stock
+#  this i them run with some url to download the file 
+# the file is them opened securedly using the with open  style
+# with appl_info, the content of the file is now accesinle
+appl = yf.ticker('appl')
+
+
+with open('appl.json', 'r') as appl_json_file:
+    appl_info = json.load(appl_json_file)
+
+appl_info
+
+# to acess the coutry
+appl_info['country']
+
+# all it requires is a key  as  to access a value
